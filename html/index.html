@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="./../render/renderer.js"></script>
+    <link href="./../css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        (function () {
+            readFolder('/');
+        })();
+    </script>
+</head>
+<body>
+    <div id="window">
+        <ul class="menu">
+            <li onclick="readFolder('/', true)"><i class="material-icons">home</i>Home</li>
+            <li onclick="readFolder('/Users/Bruno/Documents/', true)"><i class="material-icons">insert_drive_file</i>Documents</li>
+            <li onclick="readFolder('/Users/Bruno/Downloads/', true)"><i class="material-icons">cloud_download</i>Downloads</li>
+            <li onclick="readFolder('/Users/Bruno/Music/', true)"><i class="material-icons">music_note</i>Music</li>
+        </ul>
+        <div class="nav">
+            <div class="control">
+                <button class="back" onclick="goBack()"><i class="material-icons">keyboard_arrow_left</i></button>
+                <button class="forward deactivated" onclick="goForward()"><i class="material-icons">keyboard_arrow_right</i></button>
+            </div>
+            <button class="minimize" onclick="MinimizeApp()"></button>
+            <button class="close" onclick="closeApp()"></button>
+        </div>
+        <div id="listed-files">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Size</th>
+                    </tr>
+                </thead>
+                <tbody id="display-files">
+                </tbody>
+            </table>
+            <table class="statusbar">
+                <tr>
+                    <td>
+                        <p class="file-count"></p>
+                    </td>
+                    <td>
+                        <p class="max-size"></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="./../render/nav.js"></script>
+    <script>
+        require('./../render/renderer');
+    </script>
+</body>
+</html>

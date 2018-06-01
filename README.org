@@ -1,0 +1,38 @@
+* fex (File EXplorer)
+
+WIP
+
+A minimal file explorer.
+... even though there's nothing minimal about electron apps at all.
+
+** Installation
+   Type *$ npm install* to install the application.
+
+** Usage
+   
+   Type *$ npm start* to start the application.
+
+** Keybindings
+
+- *<* go back
+- *>* go forward
+- *<h j k l>* to move around
+- *<N> (number)* repeat a command N times.
+
+** TODO Features
+
+- [X] Open file
+- [ ] Show type (.png, .jpg, .pdf etc)
+- [ ] Image thumbnails
+- [ ] Fullscreen mode
+- [X] File Size
+- [ ] Date modified
+- [ ] Delete 
+- [ ] Rename
+- [ ] Tabs (alt<n> to select tab)
+- [ ] Context Menu
+- [ ] Searching
+- [ ] Filter (by date, by name, size etc)
+- [ ] Selecting multiple files
+- [ ] Drag and Drop
+
