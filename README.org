@@ -3,21 +3,22 @@
 WIP
 
 A minimal file explorer.
+
 ... even though there's nothing minimal about electron apps at all.
 
 ** Installation
-   Type *$ npm install* to install the application.
+   Type ~$ npm install~ to install the application.
 
 ** Usage
    
-   Type *$ npm start* to start the application.
+   Type ~$ npm start~ to start the application.
 
 ** Keybindings
 
-- *<* go back
-- *>* go forward
-- *<h j k l>* to move around
-- *<N> (number)* repeat a command N times.
+- ~<~ go back
+- ~>~ go forward
+- ~<h j k l>~ to move around
+- ~<N> (number)~ repeat a command N times.
 
 ** TODO Features
 
