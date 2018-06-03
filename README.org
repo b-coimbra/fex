@@ -17,6 +17,7 @@ A minimal file explorer.
 
 - ~<~ go back
 - ~>~ go forward
+- ~x~ delete current tab
 - ~<h j k l>~ to move around
 - ~<N> (number)~ repeat a command N times.
 
@@ -27,12 +28,15 @@ A minimal file explorer.
 - [ ] Image thumbnails
 - [ ] Fullscreen mode
 - [X] File Size
-- [ ] Date modified
+- [X] Date modified
 - [ ] Delete 
 - [ ] Rename
-- [ ] Tabs (alt<n> to select tab)
+- [X] Tabs (<numpad> to select tab)
 - [ ] Context Menu
+  - [ ] Open folder in a separate tab
+  - [ ] Properties
 - [ ] Searching
+  - [ ] Autocomplete
 - [ ] Filter (by date, by name, size etc)
 - [ ] Selecting multiple files
 - [ ] Drag and Drop

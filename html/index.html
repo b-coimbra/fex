@@ -3,7 +3,8 @@
 <head>
     <script src="./../render/renderer.js"></script>
     <link href="./../css/style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="
+    stylesheet">
     <script>
         (function () {
             readFolder('/');
@@ -13,46 +14,59 @@
 <body>
     <div id="window">
         <ul class="menu">
-            <li onclick="readFolder('/', true)"><i class="material-icons">home</i>Home</li>
-            <li onclick="readFolder('/Users/Bruno/Documents/', true)"><i class="material-icons">insert_drive_file</i>Documents</li>
-            <li onclick="readFolder('/Users/Bruno/Downloads/', true)"><i class="material-icons">cloud_download</i>Downloads</li>
-            <li onclick="readFolder('/Users/Bruno/Music/', true)"><i class="material-icons">music_note</i>Music</li>
+            <li shortcut="/" class="active"><img src="../resources/icons/my-computer.png">Home</li>
+            <li shortcut="/Documents/"><img src="../resources/icons/documents.png">Documents</li>
+            <li shortcut="/Downloads/"><img src="../resources/icons/downloads.png">Downloads</li>
+            <li shortcut="/Music/"><img src="../resources/icons/music.png">Music</li>
+            <li shortcut="/Videos/"><img src="../resources/icons/videos.png">Videos</li>
         </ul>
         <div class="nav">
             <div class="control">
+                <button class="open-menu"><i class="material-icons">menu</i></button>
                 <button class="back" onclick="goBack()"><i class="material-icons">keyboard_arrow_left</i></button>
                 <button class="forward deactivated" onclick="goForward()"><i class="material-icons">keyboard_arrow_right</i></button>
+                <button class="current-tab">1<span class="total-tabs">/1</span></button>
+                <button class="add-tab"><i class="material-icons">add</i></button>
             </div>
             <button class="minimize" onclick="MinimizeApp()"></button>
             <button class="close" onclick="closeApp()"></button>
         </div>
-        <div id="listed-files">
+        <div id="listed-files" tab-num="1" active>
             <table>
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Date modified</th>
                         <th>Size</th>
                     </tr>
                 </thead>
                 <tbody id="display-files">
                 </tbody>
             </table>
-            <table class="statusbar">
-                <tr>
-                    <td>
-                        <p class="file-count"></p>
-                    </td>
-                    <td>
-                        <p class="max-size"></p>
-                    </td>
-                </tr>
-            </table>
+            <div class="statusbar">
+                <p class="file-count"></p>
+                <p class="max-size"></p>
+            </div>
         </div>
     </div>
 
     <script src="./../render/nav.js"></script>
     <script>
-        require('./../render/renderer');
+     require('./../render/renderer');
+     require('./../render/menu');
+     require('./../render/tabs');
+
+     document.onkeypress = (e) => {
+         switch (e.key) {
+             case '<':
+                 goBack();
+                 break;
+             case '>':
+                 goForward();
+                 break;
+         }
+     };
+
     </script>
 </body>
 </html>

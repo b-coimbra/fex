@@ -8,48 +8,64 @@ body {
 }
 
 #window {
+    --menu-size: 62px;
     height: 100vh;
     display: grid;
     grid-template-rows: [nav] 35px [main] auto;
-    grid-template-columns: [menu] 200px [files] auto;
+    grid-template-columns: [menu] var(--menu-size) [files] auto;
+}
+
+#window.activateMenu {
+    --menu-size: 200px;
 }
 
 .menu {
     grid-column: menu;
     grid-row: main;
     list-style: none;
-    padding: 1em;
+    padding: 1em 0;
     background: rgba(6, 7, 10, 0.95);
 }
 .menu li {
-    font: 500 12px 'Roboto', sans-serif;
-    color: #adadad;
+    font: 500 13px 'Roboto', sans-serif;
+    color: #fff;
+    opacity: .6;
     letter-spacing: .5px;
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: .5em;
+    padding: .8em 1.5em;
 }
 
-.menu li i {
-    margin-right: .3em;
+.menu li img {
+    float: left;
+    margin-right: 1.5em;
+    filter: invert(1);
+    pointer-events: none;
 }
 
 .menu li:hover {
-    color: #fff;
+    opacity: 1;
+}
+
+.menu li.active {
+    box-shadow: inset 3px 0;
+    background: #161619;
+    opacity: 1;
 }
 
 .nav {
     position: fixed;
     width: 100%;
     height: 35px;
-    padding: 1em .5em 1em .4em;
+    padding: 1em .5em 1em 1.2em;
     background: #1c1d25;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     box-sizing: border-box;
     grid-row: nav;
+    z-index: 2;
 }
 
 /* TODO: make icons smaller */
@@ -60,6 +76,15 @@ body {
     outline: 0;
     border: 0;
     background: none;
+}
+
+.nav .open-menu {
+    margin-right: 10px;
+    color: rgba(255, 255, 255, 0.3) !important
+}
+
+.nav .open-menu:hover {
+    color: #fff !important;
 }
 
 .nav .close {
@@ -89,6 +114,7 @@ body {
     box-sizing: border-box;
     background: #161619;
     box-shadow: 0 0 50px 10px rgba(0, 0, 0, .5);
+    z-index: 1;
 }
 
 #listed-files::-webkit-scrollbar {
@@ -119,6 +145,13 @@ body {
 
 #display-files {
     grid-row: items;
+}
+
+#display-files td[id^='/'] {
+    max-width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 #display-files td {
@@ -167,6 +200,8 @@ body {
 }
 
 .statusbar {
+    display: flex;
+    width: 100%;
     position: fixed;
     grid-row: statusbar;
     bottom: 0;
@@ -176,6 +211,24 @@ body {
     font: 500 12px 'Roboto', sans-serif;
 }
 
-.statusbar td {
+.statusbar p {
     padding: .6em 1.5em;
+}
+
+#listed-files[active] {
+    right: 0 !important;
+}
+
+#listed-files:not([tab-num='1']) {
+    right: -100%;
+    position: relative;
+    transition: all .5s;
+}
+
+.current-tab {
+    color: #83ff7c;
+}
+
+.current-tab span {
+    color: #828282;
 }

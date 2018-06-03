@@ -7,7 +7,8 @@ const fs = require('fs');
 const { shell } = require('electron');
 
 const $ = {
-  qS: (e) => document.querySelector(e)
+  qS: (e) => document.querySelector(e),
+  qA: (e) => document.querySelectorAll(e)
 };
 
 Number.prototype.to_filesize = function () {
@@ -30,6 +31,9 @@ let fileSize = (filename) =>
 let directories = ['/'],
     previous = [];
 
+let getModDate = (date) =>
+    `${date.getDay()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+
 function readFolder(path = '/', append = false) {
   if (append) directories.push(path);
 
@@ -41,7 +45,7 @@ function readFolder(path = '/', append = false) {
 
     if (err) throw err;
 
-    let fileContainer = $.qS('#display-files');
+    let fileContainer = $.qS('#listed-files[active] #display-files');
     fileContainer.innerHTML = '';
 
     for (let file of files) {
@@ -53,7 +57,7 @@ function readFolder(path = '/', append = false) {
         if (status.isDirectory())
           fileContainer.innerHTML +=
             `<tr>
-              <td id="${fileID}" ondblclick="readFolder(this.id, true)" onclick="selectFolder(this)" valign="middle">
+              <td id="${fileID}" ondblclick="readFolder(this.id, true)" onclick="selectFolder(this)">
                 <div>
                   <i class="material-icons">folder</i>
                   ${file}
@@ -61,12 +65,17 @@ function readFolder(path = '/', append = false) {
               </td>
               <td>
               </td>
+              <td>
+              </td>
             </tr>`;
         else {
           fileContainer.innerHTML +=
             `<tr>
-              <td id="${fileID}" ondblclick="openFile(this.id)" valign="middle">
+              <td id="${fileID}" ondblclick="openFile(this.id)">
                 ${file}
+              </td>
+              <td>
+                ${getModDate(status.mtime)}
               </td>
               <td>
                 ${fileSize(fileID).to_filesize()}
@@ -101,11 +110,4 @@ let goBack = () => {
     $.qS('.nav .control .forward').classList.add('deactivated');
 
   readFolder(directories.pop(), true);
-};
-
-document.onkeypress = (e) => {
-  switch (e.key) {
-  case '<': goBack();
-  case '>': goForward();
-  }
 };
