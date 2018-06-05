@@ -22,7 +22,7 @@ Number.prototype.to_filesize = function () {
 
   for (var key in sizes)
     if (this < sizes[key])
-      return `${Math.round((parseFloat(this) / (sizes[key] / 1024)))}${key}`;
+      return `${Math.round((parseFloat(this) / (sizes[key] / 1024)))} ${key}`;
 };
 
 let fileSize = (filename) =>
@@ -47,6 +47,7 @@ function readFolder(path = '/', append = false) {
 
     let fileContainer = $.qS('#listed-files[active] #display-files');
     fileContainer.innerHTML = '';
+    fileContainer.setAttribute('directory', path);
 
     for (let file of files) {
       fs.stat(path + file, (err, status) => {

@@ -4,11 +4,11 @@
     <script src="./../render/renderer.js"></script>
     <link href="./../css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="
-    stylesheet">
+                stylesheet">
     <script>
-        (function () {
-            readFolder('/');
-        })();
+     (function () {
+         readFolder('/');
+     })();
     </script>
 </head>
 <body>
@@ -25,7 +25,8 @@
                 <button class="open-menu"><i class="material-icons">menu</i></button>
                 <button class="back" onclick="goBack()"><i class="material-icons">keyboard_arrow_left</i></button>
                 <button class="forward deactivated" onclick="goForward()"><i class="material-icons">keyboard_arrow_right</i></button>
-                <button class="current-tab">1<span class="total-tabs">/1</span></button>
+                <!-- <button class="current-tab">1<span>/1</span></button> -->
+                <div class="tabs"></div>
                 <button class="add-tab"><i class="material-icons">add</i></button>
             </div>
             <button class="minimize" onclick="MinimizeApp()"></button>

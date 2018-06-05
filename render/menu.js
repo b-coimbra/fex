@@ -1,6 +1,6 @@
 const os = require('os');
 
-let menuElems = document.querySelectorAll('.menu li');
+let menuElems = $.qA('.menu li');
 
 let activateMenu = (elem) => {
   menuElems.forEach((e) => e.classList.remove('active'));
@@ -15,6 +15,6 @@ menuElems.forEach((elem) => {
   };
 });
 
-document.querySelector('.open-menu').onclick = () => {
-  document.querySelector('#window').classList.toggle('activateMenu');
+$.qS('.open-menu').onclick = () => {
+  $.qS('#window').classList.toggle('activateMenu');
 };
