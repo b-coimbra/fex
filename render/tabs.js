@@ -21,14 +21,65 @@ class Tabs {
     return nodes.indexOf($.qS('#listed-files[active]'));
   }
 
+  refreshMenu() {
+    // TODO: refactoring
+    $.qA('.menu li').forEach((elem) => elem.setAttribute('class', ''));
+
+    let activeWindow = $.qS('#listed-files[active]').childNodes[1].childNodes[3].getAttribute('directory').split('/');
+
+    $.qA('.menu li').forEach((elem) => {
+        // TODO: if no currencies, then check whether the drive is C: (highlight 'My Computer' Icon if it is)
+      if (`/${activeWindow[activeWindow.length - 2]}/` == elem.getAttribute('shortcut'))
+        elem.setAttribute('class', 'active');
+    });
+  }
+
+  viewImages() {
+    // TODO: refactoring
+    $.qS('#listed-files[active] #display-files').innerHTML += "<div class='images'></div>";
+
+    $.qA('#listed-files[active] #display-files tr').forEach((elem) => elem.setAttribute('style', 'display: none !important'));
+
+    $.qA('#listed-files[active] #display-files tr td[ondblclick^=openFile]').forEach((file) => {
+      if (file.innerHTML.split('.').slice(-1)[0].match(/(png|jpg)/i)) {
+        $.qS('#display-files .images').innerHTML +=
+          `<img src="${$.qS('#listed-files[active] #display-files').getAttribute('directory')}${file.innerHTML}">`;
+      }
+    });
+  }
+
   keybindings() {
     document.onkeydown = (e) => {
       if (e != undefined) {
+        switch (e.key) {
+        case '<':
+          goBack();
+          break;
+        case '>':
+          goForward();
+          break;
+        }
+
+        if (e.altKey) {
+          switch (e.keyCode) {
+          case 37: // left
+            goBack();
+            break;
+          case 39: // right
+            goForward();
+            break;
+          case 38: // up
+            readFolder(getUpDir($.qS('#listed-files[active] #display-files').getAttribute('directory')));
+            break;
+          }
+        }
+
         if (Number.isInteger(parseInt(e.key))) {
           let current = $.qS(`#listed-files[tab-num='${e.key}']`);
 
           if (current != null) {
             this.activate(current);
+            this.refreshMenu();
             this.update();
           }
         }
@@ -44,6 +95,8 @@ class Tabs {
         }
         else if (e.ctrlKey && e.key == 'n')
           this.create();
+        else if (e.key == '#')
+          this.viewImages();
       }
     };
   }
@@ -86,6 +139,8 @@ class Tabs {
 
         $.qA('.tabs div').forEach((i) => i.classList.remove('active'));
         elem.classList.add('active');
+
+        this.refreshMenu();
       };
     });
   }

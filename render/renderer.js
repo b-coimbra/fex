@@ -1,6 +1,5 @@
 // TODO: add marking 'onclick' on the item selected
 // TODO: add total of files in current folder at the 'status' panel
-// TODO: add TABS
 
 const fs = require('fs');
 
@@ -34,6 +33,14 @@ let directories = ['/'],
 let getModDate = (date) =>
     `${date.getDay()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
 
+let getUpDir = (dir) => {
+  let temp = dir.split('/').filter(Boolean);
+  temp = temp.slice(-(temp.length), -1);
+
+  if (temp != "")
+    return `/${temp.join('/')}/`;
+};
+
 function readFolder(path = '/', append = false) {
   if (append) directories.push(path);
 
@@ -61,26 +68,18 @@ function readFolder(path = '/', append = false) {
               <td id="${fileID}" ondblclick="readFolder(this.id, true)" onclick="selectFolder(this)">
                 <div>
                   <i class="material-icons">folder</i>
-                  ${file}
+                  <p>${file}</p>
                 </div>
               </td>
-              <td>
-              </td>
-              <td>
-              </td>
+              <td></td>
+              <td></td>
             </tr>`;
         else {
           fileContainer.innerHTML +=
             `<tr>
-              <td id="${fileID}" ondblclick="openFile(this.id)">
-                ${file}
-              </td>
-              <td>
-                ${getModDate(status.mtime)}
-              </td>
-              <td>
-                ${fileSize(fileID).to_filesize()}
-              </td>
+              <td id="${fileID}" ondblclick="openFile(this.id)">${file}</td>
+              <td>${getModDate(status.mtime)}</td>
+              <td>${fileSize(fileID).to_filesize()}</td>
             </tr>`;
 
           maxSize += fileSize(fileID);

@@ -24,7 +24,7 @@ body {
     grid-row: main;
     list-style: none;
     padding: 1em 0;
-    background: rgba(6, 7, 10, 0.95);
+    background: rgba(0, 0, 0, .95);
 }
 .menu li {
     font: 500 13px 'Roboto', sans-serif;
@@ -113,7 +113,7 @@ body {
     list-style: none;
     box-sizing: border-box;
     background: #161619;
-    box-shadow: 0 0 50px 10px rgba(0, 0, 0, .5);
+    /* box-shadow: 0 0 50px 10px rgba(0, 0, 0, .5); */
     z-index: 1;
 }
 
@@ -258,4 +258,19 @@ body {
 .tabs div.active {
     background: #555c7d !important;
     color: #fff !important;
+}
+
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.images img {
+    max-width: 150px;
+    max-height: 150px;
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+    transition: all .3s;
 }

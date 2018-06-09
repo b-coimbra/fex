@@ -15,12 +15,13 @@ A minimal file explorer.
 
 ** Keybindings
 
-- ~<~ go back
-- ~>~ go forward
+- ~<~, ~Alt <left-key>~ go back
+- ~>~, ~Alt <right-key>~ go forward
 - ~<numpad>~ move to other tabs
 - ~x~ delete current tab
 - ~Ctrl-n>~ create new tab
-- ~<h j k l>~ to move around
+- ~#~ toggle image thumbnails
+- ~Alt <up-key>~ go up one directory
 - ~<N> (number)~ repeat a command N times.
 
 ** TODO Features
