@@ -13,11 +13,18 @@ A minimal file explorer.
 ** Installation
    Type ~$ npm install~ to install the application.
 
+** Building
+   1. Install [[https://github.com/electron-userland/electron-packager][electron-packager]]
+   2. Run ~$ electron-packager . fex --overwrite~
+   3. The executable can be found in the newly created folder ~fex-win32-x64~
+
 ** Usage
    
    Type ~$ npm start~ to start the application.
 
 ** Keybindings
+
+   The bindings can be changed in the ~config.json~ file.
 
 - ~<~, ~Alt <left-key>~ go back
 - ~>~, ~Alt <right-key>~ go forward
