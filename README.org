@@ -4,7 +4,11 @@ WIP
 
 A minimal file explorer.
 
-... even though there's nothing minimal about electron apps at all.
+** Preview
+
+[[file:https://i.imgur.com/ArtIita.png]]
+
++even though there's nothing minimal about electron apps at all+
 
 ** Installation
    Type ~$ npm install~ to install the application.
@@ -27,14 +31,14 @@ A minimal file explorer.
 
 - [X] Open file
 - [ ] Show type (.png, .jpg, .pdf etc)
-- [ ] Image thumbnails
-- [ ] Fullscreen mode
+- [50%] Image thumbnails
+- [X] Fullscreen mode
 - [X] File Size
 - [X] Date modified
 - [ ] Delete 
 - [ ] Rename
 - [X] Tabs (<numpad> to select tab)
-- [ ] Context Menu
+- [X] Context Menu
   - [ ] Open folder in a separate tab
   - [ ] Properties
 - [ ] Searching
@@ -42,4 +46,3 @@ A minimal file explorer.
 - [ ] Filter (by date, by name, size etc)
 - [ ] Selecting multiple files
 - [ ] Drag and Drop
-
