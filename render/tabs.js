@@ -1,5 +1,7 @@
 // TODO: save scroll position when changing tabs
 // TODO: save ammount of tabs in localStorage when the app is closed
+
+// const json = require('../config.json');
 class Tabs {
   constructor() { }
 
@@ -48,57 +50,39 @@ class Tabs {
     });
   }
 
+  upDir() {
+    readFolder(getUpDir($.qS('#listed-files[active] #display-files').getAttribute('directory')));
+  }
+
   keybindings() {
-    document.onkeydown = (e) => {
-      if (e != undefined) {
-        switch (e.key) {
-        case '<':
-          goBack();
-          break;
-        case '>':
-          goForward();
-          break;
-        }
+    fs.readFile("config.json", "utf8", (err, data) => {
+      if (err) throw err;
 
-        if (e.altKey) {
-          switch (e.keyCode) {
-          case 37: // left
-            goBack();
-            break;
-          case 39: // right
-            goForward();
-            break;
-          case 38: // up
-            readFolder(getUpDir($.qS('#listed-files[active] #display-files').getAttribute('directory')));
-            break;
+      const json        = JSON.parse(data),
+            keybindings = json.keybindings,
+            altKeys     = keybindings.alt;
+
+      document.onkeydown = (e) => {
+        if (e != undefined) {
+          if (keybindings[e.key])
+            eval(keybindings[e.key]);
+          else if (Number.isInteger(parseInt(e.key))) {
+            let current = $.qS(`#listed-files[tab-num='${e.key}']`);
+
+            if (current != null) {
+              this.activate(current);
+              this.refreshMenu();
+              this.update();
+            }
+          }
+          else if (e.altKey) {
+            for (let _key_ in altKeys)
+              if (altKeys.hasOwnProperty(_key_) && _key_ == e.keyCode)
+                eval(altKeys[_key_]);
           }
         }
-
-        if (Number.isInteger(parseInt(e.key))) {
-          let current = $.qS(`#listed-files[tab-num='${e.key}']`);
-
-          if (current != null) {
-            this.activate(current);
-            this.refreshMenu();
-            this.update();
-          }
-        }
-        else if (e.key == 'x') {
-          if ($.qA('#listed-files').length > 1) {
-            let previous = (this.getPreviousTab() - 2);
-
-            this.remove('#listed-files[active]');
-            this.activate($.qS(`#listed-files[tab-num='${previous}']`));
-
-            this.update();
-          }
-        }
-        else if (e.ctrlKey && e.key == 'n')
-          this.create();
-        else if (e.key == '#')
-          this.viewImages();
-      }
-    };
+      };
+    });
   }
 
   create() {
@@ -114,8 +98,15 @@ class Tabs {
     this.update();
   }
 
-  remove(tab) {
-    $.qS(tab).remove();
+  remove() {
+    if ($.qA('#listed-files').length > 1) {
+      let previous = (this.getPreviousTab() - 2);
+
+      $.qS('#listed-files[active]').remove();
+      this.activate($.qS(`#listed-files[tab-num='${previous}']`));
+
+      this.update();
+    }
   }
 
   activate(tab) {

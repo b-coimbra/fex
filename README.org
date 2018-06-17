@@ -17,12 +17,11 @@ A minimal file explorer.
 
 - ~<~, ~Alt <left-key>~ go back
 - ~>~, ~Alt <right-key>~ go forward
-- ~<numpad>~ move to other tabs
-- ~x~ delete current tab
-- ~Ctrl-n>~ create new tab
-- ~#~ toggle image thumbnails
 - ~Alt <up-key>~ go up one directory
-- ~<N> (number)~ repeat a command N times.
+- ~<numpad>~ move to other tabs
+- ~+~ create new tab
+- ~-~ delete current tab
+- ~#~ toggle image thumbnails
 
 ** TODO Features
 

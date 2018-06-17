@@ -66,6 +66,15 @@ body {
     box-sizing: border-box;
     grid-row: nav;
     z-index: 2;
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+}
+
+.control button,
+.control .tabs,
+.minimize,
+.close {
+    -webkit-app-region: no-drag;
 }
 
 /* TODO: make icons smaller */
