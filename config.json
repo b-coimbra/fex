@@ -5,6 +5,7 @@
     "#": "this.viewImages()",
     "<": "goBack()",
     ">": "goForward()",
+    "|": "this.toggleMenu()",
     "alt": {
       "37": "goBack()",
       "39": "goForward()",

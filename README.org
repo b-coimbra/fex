@@ -21,6 +21,7 @@ A minimal file explorer.
 - ~<numpad>~ move to other tabs
 - ~+~ create new tab
 - ~-~ delete current tab
+- ~|~ toggle menu
 - ~#~ toggle image thumbnails
 
 ** TODO Features

@@ -1,7 +1,6 @@
 // TODO: save scroll position when changing tabs
 // TODO: save ammount of tabs in localStorage when the app is closed
 
-// const json = require('../config.json');
 class Tabs {
   constructor() { }
 
@@ -9,27 +8,26 @@ class Tabs {
     this.update();
     this.keybindings();
 
-    $.qS('.add-tab').onclick = () =>
+    $('.add-tab').onclick = () =>
       this.create();
   }
 
   winCount() {
-    return $.qA('#listed-files').length;
+    return $$('#listed-files').length;
   }
 
   getPreviousTab() {
-    let nodes = Array.prototype.slice.call($.qS('#window').children);
-
-    return nodes.indexOf($.qS('#listed-files[active]'));
+    let nodes = Array.prototype.slice.call($('#window').children);
+    return nodes.indexOf($('#listed-files[active]'));
   }
 
   refreshMenu() {
     // TODO: refactoring
-    $.qA('.menu li').forEach((elem) => elem.setAttribute('class', ''));
+    $$('.menu li').forEach((elem) => elem.setAttribute('class', ''));
 
-    let activeWindow = $.qS('#listed-files[active]').childNodes[1].childNodes[3].getAttribute('directory').split('/');
+    let activeWindow = $('#listed-files[active]').childNodes[1].childNodes[3].getAttribute('directory').split('/');
 
-    $.qA('.menu li').forEach((elem) => {
+    $$('.menu li').forEach((elem) => {
         // TODO: if no currencies, then check whether the drive is C: (highlight 'My Computer' Icon if it is)
       if (`/${activeWindow[activeWindow.length - 2]}/` == elem.getAttribute('shortcut'))
         elem.setAttribute('class', 'active');
@@ -38,20 +36,24 @@ class Tabs {
 
   viewImages() {
     // TODO: refactoring
-    $.qS('#listed-files[active] #display-files').innerHTML += "<div class='images'></div>";
+    $('#listed-files[active] #display-files').innerHTML += "<div class='images'></div>";
 
-    $.qA('#listed-files[active] #display-files tr').forEach((elem) => elem.setAttribute('style', 'display: none !important'));
+    $$('#listed-files[active] #display-files tr').forEach((elem) => elem.setAttribute('style', 'display: none !important'));
 
-    $.qA('#listed-files[active] #display-files tr td[ondblclick^=openFile]').forEach((file) => {
+    $$('#listed-files[active] #display-files tr td[ondblclick^=openFile]').forEach((file) => {
       if (file.innerHTML.split('.').slice(-1)[0].match(/(png|jpg)/i)) {
-        $.qS('#display-files .images').innerHTML +=
-          `<img src="${$.qS('#listed-files[active] #display-files').getAttribute('directory')}${file.innerHTML}">`;
+        $('#display-files .images').innerHTML +=
+          `<img src="${$('#listed-files[active] #display-files').getAttribute('directory')}${file.innerHTML}">`;
       }
     });
   }
 
+  toggleMenu() {
+    $('#window').classList.toggle('activateMenu');
+  }
+
   upDir() {
-    readFolder(getUpDir($.qS('#listed-files[active] #display-files').getAttribute('directory')));
+    readFolder(getUpDir($('#listed-files[active] #display-files').getAttribute('directory')));
   }
 
   keybindings() {
@@ -67,7 +69,7 @@ class Tabs {
           if (keybindings[e.key])
             eval(keybindings[e.key]);
           else if (Number.isInteger(parseInt(e.key))) {
-            let current = $.qS(`#listed-files[tab-num='${e.key}']`);
+            let current = $(`#listed-files[tab-num='${e.key}']`);
 
             if (current != null) {
               this.activate(current);
@@ -86,24 +88,24 @@ class Tabs {
   }
 
   create() {
-    let newWindow = $.qS('#listed-files').cloneNode(true);
+    let newWindow = $('#listed-files').cloneNode(true);
 
     newWindow.setAttribute('tab-num', this.winCount() + 1);
     newWindow.removeAttribute('active');
 
-    $.qS('#window').appendChild(newWindow);
-    $.qS('.tabs').innerHTML = '';
+    $('#window').appendChild(newWindow);
+    $('.tabs').innerHTML = '';
 
     this.activate(newWindow);
     this.update();
   }
 
   remove() {
-    if ($.qA('#listed-files').length > 1) {
+    if ($$('#listed-files').length > 1) {
       let previous = (this.getPreviousTab() - 2);
 
-      $.qS('#listed-files[active]').remove();
-      this.activate($.qS(`#listed-files[tab-num='${previous}']`));
+      $('#listed-files[active]').remove();
+      this.activate($(`#listed-files[tab-num='${previous}']`));
 
       this.update();
     }
@@ -111,24 +113,24 @@ class Tabs {
 
   activate(tab) {
     if (tab != null) {
-      $.qA('#listed-files').forEach((i) => i.removeAttribute('active'));
+      $$('#listed-files').forEach((i) => i.removeAttribute('active'));
 
       tab.setAttribute('active', '');
     }
   }
 
   update() {
-    let tabs = $.qS('.tabs');
+    let tabs = $('.tabs');
     tabs.innerHTML = '';
 
-    $.qA('#listed-files').forEach((tab) => tabs.innerHTML += `<div><p>${tab.getAttribute('tab-num')}</p></div>`);
-    $.qS(`.tabs div:nth-child(${this.getPreviousTab() - 1})`).classList.add('active');
+    $$('#listed-files').forEach((tab) => tabs.innerHTML += `<div><p>${tab.getAttribute('tab-num')}</p></div>`);
+    $(`.tabs div:nth-child(${this.getPreviousTab() - 1})`).classList.add('active');
 
-    $.qA('.tabs div').forEach((elem) => {
+    $$('.tabs div').forEach((elem) => {
       elem.onclick = (e) => {
-        this.activate($.qS(`#listed-files[tab-num='${elem.childNodes[0].innerHTML}']`));
+        this.activate($(`#listed-files[tab-num='${elem.childNodes[0].innerHTML}']`));
 
-        $.qA('.tabs div').forEach((i) => i.classList.remove('active'));
+        $$('.tabs div').forEach((i) => i.classList.remove('active'));
         elem.classList.add('active');
 
         this.refreshMenu();

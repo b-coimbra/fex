@@ -5,10 +5,8 @@ const fs = require('fs');
 
 const { shell } = require('electron');
 
-const $ = {
-  qS: (e) => document.querySelector(e),
-  qA: (e) => document.querySelectorAll(e)
-};
+const $  = (e) => document.querySelector(e),
+      $$ = (e) => document.querySelectorAll(e);
 
 Number.prototype.to_filesize = function () {
   let sizes = {
@@ -52,7 +50,7 @@ function readFolder(path = '/', append = false) {
 
     if (err) throw err;
 
-    let fileContainer = $.qS('#listed-files[active] #display-files');
+    let fileContainer = $('#listed-files[active] #display-files');
     fileContainer.innerHTML = '';
     fileContainer.setAttribute('directory', path);
 
@@ -83,12 +81,12 @@ function readFolder(path = '/', append = false) {
             </tr>`;
 
           maxSize += fileSize(fileID);
-          $.qS('.max-size').innerHTML = `${maxSize.to_filesize()} total`;
+          $('.max-size').innerHTML = `${maxSize.to_filesize()} total`;
         }
       });
       ++fileCount;
     }
-    $.qS('.file-count').innerHTML = `${fileCount} files`;
+    $('.file-count').innerHTML = `${fileCount} files`;
   });
 }
 
@@ -105,9 +103,9 @@ let goBack = () => {
   previous.push(directories.pop());
 
   if (previous.length > 0)
-    $.qS('.nav .control .forward').classList.remove('deactivated');
+    $('.nav .control .forward').classList.remove('deactivated');
   else
-    $.qS('.nav .control .forward').classList.add('deactivated');
+    $('.nav .control .forward').classList.add('deactivated');
 
   readFolder(directories.pop(), true);
 };
