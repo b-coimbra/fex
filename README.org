@@ -4,16 +4,27 @@ WIP
 
 A minimal file explorer.
 
-... even though there's nothing minimal about electron apps at all.
+** Preview
+
+[[file:https://i.imgur.com/ArtIita.png]]
+
++even though there's nothing minimal about electron apps at all+
 
 ** Installation
    Type ~$ npm install~ to install the application.
+
+** Building
+   1. Install [[https://github.com/electron-userland/electron-packager][electron-packager]]
+   2. Run ~$ electron-packager . fex --overwrite~
+   3. The executable can be found in the newly created folder ~fex-win32-x64~
 
 ** Usage
    
    Type ~$ npm start~ to start the application.
 
 ** Keybindings
+
+   The bindings can be changed in the ~config.json~ file.
 
 - ~<~, ~Alt <left-key>~ go back
 - ~>~, ~Alt <right-key>~ go forward
@@ -28,14 +39,14 @@ A minimal file explorer.
 
 - [X] Open file
 - [ ] Show type (.png, .jpg, .pdf etc)
-- [ ] Image thumbnails
-- [ ] Fullscreen mode
+- [50%] Image thumbnails
+- [X] Fullscreen mode
 - [X] File Size
 - [X] Date modified
 - [ ] Delete 
 - [ ] Rename
 - [X] Tabs (<numpad> to select tab)
-- [ ] Context Menu
+- [X] Context Menu
   - [ ] Open folder in a separate tab
   - [ ] Properties
 - [ ] Searching
@@ -43,4 +54,3 @@ A minimal file explorer.
 - [ ] Filter (by date, by name, size etc)
 - [ ] Selecting multiple files
 - [ ] Drag and Drop
-
