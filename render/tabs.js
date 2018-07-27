@@ -56,6 +56,10 @@ class Tabs {
     readFolder(getUpDir($('#listed-files[active] #display-files').getAttribute('directory')));
   }
 
+  showKeybindings() {
+    $('#keybindings').classList.toggle('active');
+  }
+
   keybindings() {
     fs.readFile("config.json", "utf8", (err, data) => {
       if (err) throw err;
@@ -114,7 +118,6 @@ class Tabs {
   activate(tab) {
     if (tab != null) {
       $$('#listed-files').forEach((i) => i.removeAttribute('active'));
-
       tab.setAttribute('active', '');
     }
   }

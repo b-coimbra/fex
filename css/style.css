@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 * {
     margin: 0;
     padding: 0;
@@ -298,4 +300,84 @@ body {
     position: fixed;
     display: none;
     background: inherit;
+}
+
+#keybindings {
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .5s;
+}
+
+#keybindings.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#keybindings .keys {
+    display: grid;
+    grid-template-rows: [close] 35px [keys] auto;
+    grid-template-columns: auto [close] 35px;
+    width: 80%;
+    height: 80%;
+    border-radius: 3px;
+    background: #1c1d25;
+}
+
+#keybindings .close {
+    background: url(../resources/icons/close.png) center no-repeat;
+    border: 0;
+    padding: .5em;
+    cursor: pointer;
+    outline: 0;
+    grid-row: close;
+    grid-column: close;
+    filter: grayscale(1);
+}
+
+#keybindings .close:hover {
+    filter: grayscale(0);
+}
+
+#keybindings .keys ul {
+    list-style: none;
+    grid-row: keys;
+    margin: 0 5%;
+}
+
+#keybindings .keys ul li {
+    margin: 1em 0 0 0;
+    display: flex;
+    align-items: center;
+    color: #afafaf;
+    font: 500 13px 'Roboto', sans-serif;
+    letter-spacing: .5px;
+}
+
+#keybindings .keys ul li::before {
+    content: attr(key);
+    padding: .3em;
+    background: white;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin: 0 1em 0 0;
+    font: 600 16px 'Roboto', sans-serif;
+    box-shadow: 0 3px 0 #988c8c;
+    color: 5d5d7b;
 }

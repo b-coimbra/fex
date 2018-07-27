@@ -53,7 +53,22 @@
             </div>
         </div>
     </div>
-
+    <div id="keybindings">
+        <div class="keys">
+            <button class="close" onclick="$('#keybindings').classList.remove('active')"></button>
+            <ul>
+                <li key="+">create a tab</li>
+                <li key="-">delete the current tab</li>
+                <li key="x">delete the current tab</li>
+                <li key="#">toggle images</li>
+                <li key="<">go to the previous directory</li>
+                <li key=">">go forward one directory</li>
+                <li key="|">toggle the menu</li>
+                <li key="?">toggle this cheatsheet</li>
+            </ul>
+        </div>
+    </div>
+    
     <script src="./../render/nav.js"></script>
     <script>
      require('./../render/renderer');

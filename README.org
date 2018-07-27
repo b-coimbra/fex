@@ -26,12 +26,13 @@ A minimal file explorer.
 
    The bindings can be changed in the ~config.json~ file.
 
+- ~?~ toggle keybindings cheatsheet
 - ~<~, ~Alt <left-key>~ go back
 - ~>~, ~Alt <right-key>~ go forward
 - ~Alt <up-key>~ go up one directory
 - ~<numpad>~ move to other tabs
 - ~+~ create new tab
-- ~-~ delete current tab
+- ~-~, ~x~ delete current tab
 - ~|~ toggle menu
 - ~#~ toggle image thumbnails
 
