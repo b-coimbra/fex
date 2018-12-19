@@ -1,13 +1,41 @@
 {
   "keybindings": {
-    "+": "this.create()",
-    "-": "this.remove()",
-    "x": "this.remove()",
-    "#": "this.viewImages()",
-    "<": "goBack()",
-    ">": "goForward()",
-    "|": "this.toggleMenu()",
-    "?": "this.showKeybindings()",
+    "+": {
+        "description": "create a tab",
+        "function": "tabs.create()"
+    },
+    "=": {
+        "function": "tabs.create()",
+        "description": "create a tab"
+    },
+    "-": {
+        "function": "tabs.remove()",
+        "description": "delete the current tab"
+    },
+    "x": {
+        "function": "tabs.remove()",
+        "description": "delete the current tab"
+    },
+    "#": {
+        "function": "tabs.viewImages()",
+        "description": "toggle images"
+    },
+    "<": {
+        "function": "goBack()",
+        "description": "go to the previous directory"
+    },
+    ">": {
+        "function": "goForward()",
+        "description": "go forward one directory"
+    },
+    "|": {
+        "function": "menu.toggle()",
+        "description": "toggle the menu"
+    },
+    "?": {
+        "function": "this.show()",
+        "description": "toggle this page"
+    },
     "alt": {
       "37": "goBack()",
       "39": "goForward()",

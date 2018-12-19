@@ -8,6 +8,10 @@ const { shell } = require('electron');
 const $  = (e) => document.querySelector(e),
       $$ = (e) => document.querySelectorAll(e);
 
+Object.prototype.attr = function (e) {
+  return this.getAttribute(e);
+};
+
 Number.prototype.to_filesize = function () {
   let sizes = {
     'B' : 1024,
@@ -20,6 +24,8 @@ Number.prototype.to_filesize = function () {
   for (var key in sizes)
     if (this < sizes[key])
       return `${Math.round((parseFloat(this) / (sizes[key] / 1024)))} ${key}`;
+    else
+      return '';
 };
 
 let fileSize = (filename) =>
@@ -33,10 +39,13 @@ let getModDate = (date) =>
 
 let getUpDir = (dir) => {
   let temp = dir.split('/').filter(Boolean);
+
   temp = temp.slice(-(temp.length), -1);
 
   if (temp != "")
     return `/${temp.join('/')}/`;
+  else
+    return '/';
 };
 
 function readFolder(path = '/', append = false) {
@@ -88,6 +97,9 @@ function readFolder(path = '/', append = false) {
     }
     $('.file-count').innerHTML = `${fileCount} files`;
   });
+
+  // put this crap somewhere else
+  $('.tabs div.active').innerHTML = `<p>${path.split('/').slice(-2, -1)[0]}</p>`;
 }
 
 let openFile = (path) =>

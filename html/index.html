@@ -29,7 +29,8 @@
                 <button class="forward deactivated" onclick="goForward()"><i class="material-icons">keyboard_arrow_right</i></button>
                 <!-- <button class="current-tab">1<span>/1</span></button> -->
                 <div class="tabs"></div>
-                <button class="add-tab"><i class="material-icons">add</i></button>
+                <button class="split-tabs"></button>
+                <button class="add-tab"></button>
             </div>
             <button class="minimize" onclick="minimizeApp()"></button>
             <!-- <button class="maximize" onclick="maximizeApp()"><i class="material-icons">maximize</i></button> -->
@@ -50,30 +51,25 @@
             <div class="statusbar">
                 <p class="file-count"></p>
                 <p class="max-size"></p>
+                <p class="selected-files"></p>
             </div>
         </div>
     </div>
     <div id="keybindings">
         <div class="keys">
+            <h1 class="title">Configuration</h1>
             <button class="close" onclick="$('#keybindings').classList.remove('active')"></button>
-            <ul>
-                <li key="+">create a tab</li>
-                <li key="-">delete the current tab</li>
-                <li key="x">delete the current tab</li>
-                <li key="#">toggle images</li>
-                <li key="<">go to the previous directory</li>
-                <li key=">">go forward one directory</li>
-                <li key="|">toggle the menu</li>
-                <li key="?">toggle this cheatsheet</li>
-            </ul>
+            <ul></ul>
         </div>
     </div>
-    
+
     <script src="./../render/nav.js"></script>
     <script>
      require('./../render/renderer');
-     require('./../render/menu');
      require('./../render/tabs');
+     require('./../render/menu');
+     require('./../render/selector');
+     require('./../render/bindings');
     </script>
 </body>
 </html>

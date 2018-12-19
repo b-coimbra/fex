@@ -1,41 +1,27 @@
 // TODO: save scroll position when changing tabs
 // TODO: save ammount of tabs in localStorage when the app is closed
+const Menu = require('./menu.js');
 
 class Tabs {
-  constructor() { }
-
-  get refresh() {
+  constructor () {
     this.update();
-    this.keybindings();
 
     $('.add-tab').onclick = () =>
       this.create();
   }
 
-  winCount() {
+  // this should be in renderer
+  winCount () {
     return $$('#listed-files').length;
   }
 
-  getPreviousTab() {
+  previous () {
     let nodes = Array.prototype.slice.call($('#window').children);
     return nodes.indexOf($('#listed-files[active]'));
   }
 
-  refreshMenu() {
-    // TODO: refactoring
-    $$('.menu li').forEach((elem) => elem.setAttribute('class', ''));
-
-    let activeWindow = $('#listed-files[active]').childNodes[1].childNodes[3].getAttribute('directory').split('/');
-
-    $$('.menu li').forEach((elem) => {
-        // TODO: if no currencies, then check whether the drive is C: (highlight 'My Computer' Icon if it is)
-      if (`/${activeWindow[activeWindow.length - 2]}/` == elem.getAttribute('shortcut'))
-        elem.setAttribute('class', 'active');
-    });
-  }
-
-  viewImages() {
-    // TODO: refactoring
+  viewImages () {
+    // TODO: refactor this abomination ASAP
     $('#listed-files[active] #display-files').innerHTML += "<div class='images'></div>";
 
     $$('#listed-files[active] #display-files tr').forEach((elem) => elem.setAttribute('style', 'display: none !important'));
@@ -43,56 +29,13 @@ class Tabs {
     $$('#listed-files[active] #display-files tr td[ondblclick^=openFile]').forEach((file) => {
       if (file.innerHTML.split('.').slice(-1)[0].match(/(png|jpg)/i)) {
         $('#display-files .images').innerHTML +=
-          `<img src="${$('#listed-files[active] #display-files').getAttribute('directory')}${file.innerHTML}">`;
+          `<img src="${$('#listed-files[active] #display-files').attr('directory')}${file.innerHTML}">`;
       }
     });
   }
 
-  toggleMenu() {
-    $('#window').classList.toggle('activateMenu');
-  }
-
-  upDir() {
-    readFolder(getUpDir($('#listed-files[active] #display-files').getAttribute('directory')));
-  }
-
-  showKeybindings() {
-    $('#keybindings').classList.toggle('active');
-  }
-
-  keybindings() {
-    fs.readFile("config.json", "utf8", (err, data) => {
-      if (err) throw err;
-
-      const json        = JSON.parse(data),
-            keybindings = json.keybindings,
-            altKeys     = keybindings.alt;
-
-      document.onkeydown = (e) => {
-        if (e != undefined) {
-          if (keybindings[e.key])
-            eval(keybindings[e.key]);
-          else if (Number.isInteger(parseInt(e.key))) {
-            let current = $(`#listed-files[tab-num='${e.key}']`);
-
-            if (current != null) {
-              this.activate(current);
-              this.refreshMenu();
-              this.update();
-            }
-          }
-          else if (e.altKey) {
-            for (let _key_ in altKeys)
-              if (altKeys.hasOwnProperty(_key_) && _key_ == e.keyCode)
-                eval(altKeys[_key_]);
-          }
-        }
-      };
-    });
-  }
-
-  create() {
-    let newWindow = $('#listed-files').cloneNode(true);
+  create () {
+    let newWindow = $('#listed-files[active]').cloneNode(true);
 
     newWindow.setAttribute('tab-num', this.winCount() + 1);
     newWindow.removeAttribute('active');
@@ -104,43 +47,62 @@ class Tabs {
     this.update();
   }
 
-  remove() {
+  remove () {
+    // this really needs to be put somewhere else, it repeats a lot
+    let current = $('#listed-files[active]');
+
+    // if ($$('#listed-files').length > 1 && current.attr('tab-num') != 1) {
     if ($$('#listed-files').length > 1) {
-      let previous = (this.getPreviousTab() - 2);
+      let previous = (this.previous() - 2);
+
+      if (current.attr('tab-num') == 1)
+        previous = 2;
 
       $('#listed-files[active]').remove();
-      this.activate($(`#listed-files[tab-num='${previous}']`));
 
+      this.activate($(`#listed-files[tab-num='${previous}']`));
+      // fix this shit
+      $(`#listed-files[tab-num='${previous}']`).setAttribute('tab-num', 1);
       this.update();
     }
   }
 
-  activate(tab) {
+  activate (tab) {
     if (tab != null) {
       $$('#listed-files').forEach((i) => i.removeAttribute('active'));
       tab.setAttribute('active', '');
     }
   }
 
-  update() {
+  update () {
     let tabs = $('.tabs');
     tabs.innerHTML = '';
 
-    $$('#listed-files').forEach((tab) => tabs.innerHTML += `<div><p>${tab.getAttribute('tab-num')}</p></div>`);
-    $(`.tabs div:nth-child(${this.getPreviousTab() - 1})`).classList.add('active');
+    $$('#listed-files').forEach((tab) => {
+      let dir = tab.childNodes[1].childNodes[3].attr('directory'),
+          num = tab.attr('tab-num');
+
+      if (dir != null)
+        dir = dir.split('/').slice(-2, -1);
+
+      tabs.innerHTML += `<div num="${num}"><p>${dir == "" ? "~" : dir}</p></div>`;
+    });
+
+    $(`.tabs div:nth-child(${this.previous() - 1})`).classList.add('active');
 
     $$('.tabs div').forEach((elem) => {
       elem.onclick = (e) => {
-        this.activate($(`#listed-files[tab-num='${elem.childNodes[0].innerHTML}']`));
+        this.activate($(`#listed-files[tab-num='${elem.attr('num')}']`));
 
         $$('.tabs div').forEach((i) => i.classList.remove('active'));
         elem.classList.add('active');
 
-        this.refreshMenu();
+        new Menu().refresh;
       };
     });
   }
 }
 
-new Tabs().refresh;
+module.exports = Tabs;
 
+new Tabs();
