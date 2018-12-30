@@ -1,0 +1,48 @@
+{
+  "general": {
+    "devtools": {
+      "title": "developer tools",
+      "description": "enable DevTools keybindings",
+      "value": "true"
+    },
+    "vim": {
+      "title": "vim keybindings",
+      "description": "enable vim keybindings",
+      "value": "true"
+    }
+  },
+  "tabs": {
+    "numbers": {
+      "title": "numbered tabs",
+      "description": "use numbered tabs instead of folder names",
+      "value": "false"
+    },
+    "title": {
+      "title": "use titles",
+      "description": "show the directory name",
+      "value": "true"
+    },
+    "navbuttons": {
+      "title": "show buttons",
+      "description": "show the navigation buttons",
+      "value": "true"
+    }
+  },
+  "startup": {
+    "fullscreen": {
+      "title": "fullscreen mode",
+      "description": "starts fex in fullscreen",
+      "value": "false"
+    },
+    "session": {
+      "title": "last session",
+      "description": "loads the tabs from the previous session",
+      "value": "true"
+    },
+    "lastdir": {
+      "title": "last directory",
+      "description": "starts fex with the last opened directory",
+      "value": "false"
+    }
+  }
+}
