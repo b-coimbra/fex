@@ -13,7 +13,7 @@ class Selector {
 
     let select_callback = (event) => this.select(event);
 
-    ['mousedown', 'mouseup'].forEach(e => $('#display-files').addEventListener(e, select_callback));
+    ['mousedown', 'mouseup'].forEach(e => $('#display').addEventListener(e, select_callback));
   }
 
   deselect (elems) {
@@ -24,7 +24,7 @@ class Selector {
   }
 
   select (event) {
-    let elems = $$('#display-files tr');
+    let elems = $$('#display tr');
 
     elems.forEach(elem => {
       elem.onmouseover = () => {
@@ -48,3 +48,4 @@ class Selector {
 }
 
 new Selector();
+

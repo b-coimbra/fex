@@ -59,7 +59,7 @@ function readFolder(path = '/', append = false) {
 
     if (err) throw err;
 
-    let fileContainer = $('#listed-files[active] #display-files');
+    let fileContainer = $('#files[active] #display');
     fileContainer.innerHTML = '';
     fileContainer.setAttribute('directory', path);
 
@@ -97,16 +97,16 @@ function readFolder(path = '/', append = false) {
     }
     $('.file-count').innerHTML = `${fileCount} files`;
   });
-
-  // put this crap somewhere else
-  $('.tabs div.active').innerHTML = `<p>${path.split('/').slice(-2, -1)[0]}</p>`;
 }
 
 let openFile = (path) =>
     shell.openItem('C:' + path);
 
-let selectFolder = (folder) =>
-    folder.childNodes[1].childNodes[1].innerHTML = 'folder_open';
+let selectFolder = (folder) => {
+  $$('#display tr td div i').forEach(e => e.innerHTML = 'folder');
+
+  folder.childNodes[1].childNodes[1].innerHTML = 'folder_open';
+};
 
 let goForward = () =>
     readFolder(previous.pop(), true);

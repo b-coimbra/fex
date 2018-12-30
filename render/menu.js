@@ -16,7 +16,7 @@ class Menu {
 
   refresh () {
     // put this line in a separate function -- it returns the current directory path
-    let dirs = $('#listed-files[active]').childNodes[1].childNodes[3].attr('directory').split('/');
+    let dirs = $('#files[active]').childNodes[1].childNodes[3].attr('directory').split('/');
 
     Array.from($$('.menu li')).some((elem) => {
       let item = elem.attr('shortcut').split('/').join('');

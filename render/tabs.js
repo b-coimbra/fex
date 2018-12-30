@@ -1,41 +1,42 @@
 // TODO: save scroll position when changing tabs
 // TODO: save ammount of tabs in localStorage when the app is closed
-const Menu = require('./menu.js');
+const Menu     = require('./menu.js');
+const Config   = require('./config.js');
+const Selector = require('./selector.js');
 
 class Tabs {
   constructor () {
-    this.update();
-
     $('.add-tab').onclick = () =>
       this.create();
   }
 
-  // this should be in renderer
+  // this should be in renderer or a Window class
   winCount () {
-    return $$('#listed-files').length;
+    return $$('#files').length;
   }
 
   previous () {
     let nodes = Array.prototype.slice.call($('#window').children);
-    return nodes.indexOf($('#listed-files[active]'));
+
+    return nodes.indexOf($('#files[active]'));
   }
 
   viewImages () {
     // TODO: refactor this abomination ASAP
-    $('#listed-files[active] #display-files').innerHTML += "<div class='images'></div>";
+    $('#files[active] #display').innerHTML += "<div class='images'></div>";
 
-    $$('#listed-files[active] #display-files tr').forEach((elem) => elem.setAttribute('style', 'display: none !important'));
+    $$('#files[active] #display tr').forEach((elem) => elem.setAttribute('style', 'display: none !important'));
 
-    $$('#listed-files[active] #display-files tr td[ondblclick^=openFile]').forEach((file) => {
+    $$('#files[active] #display tr td[ondblclick^=openFile]').forEach((file) => {
       if (file.innerHTML.split('.').slice(-1)[0].match(/(png|jpg)/i)) {
-        $('#display-files .images').innerHTML +=
-          `<img src="${$('#listed-files[active] #display-files').attr('directory')}${file.innerHTML}">`;
+        $('#display .images').innerHTML +=
+          `<img src="${$('#files[active] #display').attr('directory')}${file.innerHTML}">`;
       }
     });
   }
 
   create () {
-    let newWindow = $('#listed-files[active]').cloneNode(true);
+    let newWindow = $('#files[active]').cloneNode(true);
 
     newWindow.setAttribute('tab-num', this.winCount() + 1);
     newWindow.removeAttribute('active');
@@ -48,53 +49,70 @@ class Tabs {
   }
 
   remove () {
-    // this really needs to be put somewhere else, it repeats a lot
-    let current = $('#listed-files[active]');
+    let current = $('#files[active]'),
+        files   = $$('#files');
 
-    // if ($$('#listed-files').length > 1 && current.attr('tab-num') != 1) {
-    if ($$('#listed-files').length > 1) {
-      let previous = (this.previous() - 2);
+    if (files.length > 1) {
+      let previous = (this.previous() - 1);
 
-      if (current.attr('tab-num') == 1)
-        previous = 2;
+      if (files.length == previous)
+        previous -= 1;
 
-      $('#listed-files[active]').remove();
+      $('#files[active]').remove();
 
-      this.activate($(`#listed-files[tab-num='${previous}']`));
-      // fix this shit
-      $(`#listed-files[tab-num='${previous}']`).setAttribute('tab-num', 1);
+      $$('#files').forEach((f, i) => f.setAttribute('tab-num', i + 1));
+
+      this.activate($(`#files[tab-num='${previous}']`));
       this.update();
     }
   }
 
   activate (tab) {
     if (tab != null) {
-      $$('#listed-files').forEach((i) => i.removeAttribute('active'));
+      $$('#files').forEach((i) => i.removeAttribute('active'));
       tab.setAttribute('active', '');
     }
   }
 
-  update () {
-    let tabs = $('.tabs');
-    tabs.innerHTML = '';
+  titleize (tabs) {
+    let config = new Config().settings.tabs;
+    let settings = {
+      numbers:    (config.numbers.value === "true"),
+      navbuttons: (config.navbuttons.value === "false")
+    };
 
-    $$('#listed-files').forEach((tab) => {
+    $('.navigation').style.display = (settings.navbuttons ? 'none' : 'inherit');
+
+    $$('#files').forEach((tab) => {
       let dir = tab.childNodes[1].childNodes[3].attr('directory'),
           num = tab.attr('tab-num');
 
       if (dir != null)
         dir = dir.split('/').slice(-2, -1);
 
-      tabs.innerHTML += `<div num="${num}"><p>${dir == "" ? "~" : dir}</p></div>`;
+      tabs.innerHTML +=
+        `<div num="${num}">
+            <p>
+              ${settings.numbers ? num : (dir == "" ? "~" : dir)}
+            </p>
+        </div>`;
     });
+  }
+
+  update () {
+    let tabs = $('.tabs');
+    tabs.innerHTML = '';
+
+    this.titleize(tabs);
 
     $(`.tabs div:nth-child(${this.previous() - 1})`).classList.add('active');
 
     $$('.tabs div').forEach((elem) => {
       elem.onclick = (e) => {
-        this.activate($(`#listed-files[tab-num='${elem.attr('num')}']`));
+        this.activate($(`#files[tab-num='${elem.attr('num')}']`));
 
         $$('.tabs div').forEach((i) => i.classList.remove('active'));
+
         elem.classList.add('active');
 
         new Menu().refresh;
@@ -105,4 +123,6 @@ class Tabs {
 
 module.exports = Tabs;
 
-new Tabs();
+let tabs = new Tabs();
+
+setInterval((() => tabs.update()));

@@ -3,8 +3,8 @@
 <head>
     <script src="./../render/renderer.js"></script>
     <link href="./../css/style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="
-                stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="./../render/config.js"></script>
     <script>
      (function () {
          readFolder('/');
@@ -25,8 +25,10 @@
         <div class="nav">
             <div class="control">
                 <button class="open-menu"><i class="material-icons">menu</i></button>
-                <button class="back" onclick="goBack()"><i class="material-icons">keyboard_arrow_left</i></button>
-                <button class="forward deactivated" onclick="goForward()"><i class="material-icons">keyboard_arrow_right</i></button>
+                <div class="navigation">
+                    <button class="back" onclick="goBack()"><i class="material-icons">keyboard_arrow_left</i></button>
+                    <button class="forward deactivated" onclick="goForward()"><i class="material-icons">keyboard_arrow_right</i></button>
+                </div>
                 <!-- <button class="current-tab">1<span>/1</span></button> -->
                 <div class="tabs"></div>
                 <button class="split-tabs"></button>
@@ -36,7 +38,7 @@
             <!-- <button class="maximize" onclick="maximizeApp()"><i class="material-icons">maximize</i></button> -->
             <button class="close" onclick="closeApp()"></button>
         </div>
-        <div id="listed-files" tab-num="1" active>
+        <div id="files" tab-num="1" active>
             <table>
                 <thead>
                     <tr>
@@ -45,7 +47,7 @@
                         <th>Size</th>
                     </tr>
                 </thead>
-                <tbody id="display-files">
+                <tbody id="display">
                 </tbody>
             </table>
             <div class="statusbar">
@@ -55,20 +57,28 @@
             </div>
         </div>
     </div>
-    <div id="keybindings">
-        <div class="keys">
-            <h1 class="title">Configuration</h1>
-            <button class="close" onclick="$('#keybindings').classList.remove('active')"></button>
-            <ul></ul>
+    <div id="options">
+        <div class="container">
+            <button class="close" onclick="$('#options').classList.remove('active')"></button>
+            <div class="keys">
+                <h1 class="title">Configuration</h1>
+                <div class="settings">
+                    <div class="wrapper"></div>
+                    <h1 class="title">Keybindings</h1>
+                    <ul></ul>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="./../render/nav.js"></script>
+    <script src="./../render/config-util.js"></script>
     <script>
      require('./../render/renderer');
      require('./../render/tabs');
      require('./../render/menu');
      require('./../render/selector');
+     require('./../render/scroller');
      require('./../render/bindings');
     </script>
 </body>
