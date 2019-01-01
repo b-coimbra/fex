@@ -1,12 +1,10 @@
 * fex (File EXplorer)
 
-WIP
-
 A minimal file explorer.
 
 ** Preview
 
-[[file:https://i.imgur.com/ArtIita.png]]
+[[file:https://i.imgur.com/tl78E8W.png]]
 
 +even though there's nothing minimal about electron apps at all+
 
