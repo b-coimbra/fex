@@ -1,3 +1,5 @@
+const Tabs = require('./tabs.js');
+
 class Scroller {
   constructor (key, bindings) {
     this.panel = $('#files[active]');

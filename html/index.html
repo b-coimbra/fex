@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="./../render/renderer.js"></script>
     <link href="./../css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="./../render/renderer.js"></script>
     <script src="./../render/config.js"></script>
     <script>
      (function () {
          readFolder('/');
-         /* new Render.readFolder('/');*/
      })();
     </script>
 </head>
 <body>
+    <div id="search">
+        <button class="close"></button>
+        <input type="text" name="search" placeholder="directory or file name">
+    </div>
     <div id="window">
         <ul class="menu">
             <li shortcut="/" class="active"><img src="../resources/icons/my-computer.png">Home</li>
@@ -31,8 +34,9 @@
                 </div>
                 <!-- <button class="current-tab">1<span>/1</span></button> -->
                 <div class="tabs"></div>
-                <button class="split-tabs"></button>
                 <button class="add-tab"></button>
+                <button class="split-tabs"></button>
+                <button class="search"></button>
             </div>
             <button class="minimize" onclick="minimizeApp()"></button>
             <!-- <button class="maximize" onclick="maximizeApp()"><i class="material-icons">maximize</i></button> -->
@@ -74,9 +78,8 @@
     <script src="./../render/nav.js"></script>
     <script src="./../render/config-util.js"></script>
     <script>
-     require('./../render/renderer');
      require('./../render/tabs');
-     require('./../render/menu');
+     require('./../render/search');
      require('./../render/selector');
      require('./../render/scroller');
      require('./../render/bindings');

@@ -69,7 +69,7 @@ body {
     justify-content: flex-end;
     box-sizing: border-box;
     grid-row: nav;
-    z-index: 2;
+    z-index: 5;
     -webkit-app-region: drag;
     -webkit-user-select: none;
 }
@@ -127,8 +127,15 @@ body {
     list-style: none;
     box-sizing: border-box;
     background: #161619;
-    /* box-shadow: 0 0 50px 10px rgba(0, 0, 0, .5); */
     z-index: 1;
+}
+
+#files.split {
+    right: -45% !important;
+    z-index: 2;
+    display: flex !important;
+    visibility: visible !important;
+    box-shadow: 0 0 2px grey;
 }
 
 #files::-webkit-scrollbar {
@@ -221,26 +228,16 @@ body {
     padding: 0 1em;
 }
 
-.nav .control .split-tabs {
-    background: #3c3d48 url(../resources/icons/split-window.png) center no-repeat;
-    height: 28px !important;
-    filter: opacity(.4);
-    margin-left: .3em;
-}
-
 .nav .control .add-tab:active,
-.nav .control .split-tabs:active {
+.nav .control .split-tabs:active,
+.nav .control .search:active {
     background-color: rgba(0, 0, 0, .5) !important;
     box-shadow: none;
 }
 
-.nav .control .split-tabs:hover {
+.nav .control button:hover {
     filter: opacity(1);
     background-color: #32354c;
-}
-
-.nav .control button:hover {
-    background-color: rgba(0, 0, 0, .2);
 }
 
 .nav .control button.deactivated {
@@ -303,6 +300,7 @@ body {
     background: #232638;
     cursor: pointer;
     color: #bdbdbd;
+    box-shadow: inset 0 -2px rgba(0, 0, 0, .3);
 }
 
 .tabs div.active {
@@ -310,14 +308,40 @@ body {
     color: #fff !important;
 }
 
-.add-tab {
-    height: 28px !important;
-    margin-left: .3em;
-    background: #3c3d48 url('../resources/icons/add-tab.png') center no-repeat !important;
-    filter: opacity(.4);
+.nav .control .split-tabs.splitted {
+    background-color: #111111;
+    filter: opacity(1);
+    box-shadow: inset 0 -2px transparent;
 }
 
-.add-tab, .split-tabs {
+.nav .control .split-tabs.splitted:hover {
+    background-color: #383838;
+}
+
+.nav .control .split-tabs,
+.nav .control .search,
+.nav .control .add-tab {
+    height: 28px !important;
+    filter: opacity(.4);
+    margin-left: .3em;
+    background: #3c3d48 var(--icon) center no-repeat;
+}
+
+.nav .control .split-tabs {
+    --icon: url(../resources/icons/split-window.png);
+}
+
+.nav .control .add-tab {
+    --icon: url('../resources/icons/add-tab.png');
+}
+
+.nav .control .search {
+    --icon: url('../resources/icons/search.png');
+}
+
+.add-tab,
+.split-tabs,
+.search {
     box-shadow: inset 0 -2px rgba(255, 255, 255, 0.20);
 }
 
@@ -353,7 +377,7 @@ body {
     height: 100%;
     background: rgba(0, 0, 0, 0.65);
     position: absolute;
-    z-index: 1;
+    z-index: 4;
     top: 0;
     right: 0;
     left: 0;
@@ -585,4 +609,29 @@ body {
 .settings .wrapper ul li p {
     color: #82848e;
     font: 400 italic 12px 'Roboto', sans-serif;
+}
+
+#search {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 3;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s;
+}
+
+#search.active {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+}
+
+#search input[name='search'] {
+    width: 80%;
+    background: #fff;
 }

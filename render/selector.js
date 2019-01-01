@@ -13,7 +13,7 @@ class Selector {
 
     let select_callback = (event) => this.select(event);
 
-    ['mousedown', 'mouseup'].forEach(e => $('#display').addEventListener(e, select_callback));
+    ['mousedown', 'mouseup'].forEach(e => $('#files[active]').addEventListener(e, select_callback));
   }
 
   deselect (elems) {

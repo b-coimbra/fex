@@ -8,6 +8,9 @@ class Tabs {
   constructor () {
     $('.add-tab').onclick = () =>
       this.create();
+
+    $('.split-tabs').onclick = () =>
+      this.split();
   }
 
   // this should be in renderer or a Window class
@@ -33,6 +36,12 @@ class Tabs {
           `<img src="${$('#files[active] #display').attr('directory')}${file.innerHTML}">`;
       }
     });
+  }
+
+  split () {
+    $('#files[active] + div').classList.toggle('split');
+
+    $('.split-tabs').classList.toggle('splitted');
   }
 
   create () {
@@ -124,5 +133,7 @@ class Tabs {
 module.exports = Tabs;
 
 let tabs = new Tabs();
+
+// tabs.update();
 
 setInterval((() => tabs.update()));

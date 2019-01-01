@@ -2,6 +2,7 @@ const Tabs     = require('./tabs.js');
 const Menu     = require('./menu.js');
 const Scroller = require('./scroller.js');
 const Config   = require('./config.js');
+const Search   = require('./search.js');
 
 class Bindings {
   constructor () { }
@@ -21,7 +22,7 @@ class Bindings {
         $('.settings > ul').innerHTML += `<li key="${elem}">${json[elem].description}</li>`;
   }
 
-  vim (key, bindings) {
+  scroll (key, bindings) {
     new Scroller(key, bindings);
   }
 
@@ -58,9 +59,14 @@ class Bindings {
               if (alt.hasOwnProperty(_key_) && _key_ == e.keyCode)
                 eval(alt[_key_]);
           }
-
-          if (conf.settings.general.vim.value == 'true')
-            this.vim(e.key, vim);
+          else {
+            if (conf.settings.general.vim.value == 'true') {
+              if (e.key == 'f')
+                new Search().toggle();
+              else
+                this.scroll(e.key, vim);
+            }
+          }
         }
       };
     });
