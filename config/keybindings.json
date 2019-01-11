@@ -17,7 +17,7 @@
         "description": "delete the current tab"
     },
     "#": {
-        "function": "tabs.viewImages()",
+        "function": "new Image().viewImages",
         "description": "toggle images"
     },
     "<": {

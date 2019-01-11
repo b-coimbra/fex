@@ -16,6 +16,10 @@ class Selector {
     ['mousedown', 'mouseup'].forEach(e => $('#files[active]').addEventListener(e, select_callback));
   }
 
+  get selected () {
+    return this.stack;
+  }
+
   deselect (elems) {
     elems.forEach(e => e.del('active'));
 

@@ -102,6 +102,7 @@ function readFolder(path = '/', append = false) {
 let openFile = (path) =>
     shell.openItem('C:' + path);
 
+// push to Selector stack
 let selectFolder = (folder) => {
   $$('#display tr td div i').forEach(e => e.innerHTML = 'folder');
 

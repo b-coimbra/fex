@@ -1,11 +1,11 @@
 const Tabs = require('./tabs.js');
 
 class Scroller {
-  constructor (key, bindings) {
+  constructor (modifier, bindings) {
     this.panel = $('#files[active]');
 
-    for (let _key_ in bindings)
-      if (_key_ == key)
+    for (let key in bindings)
+      if (key == modifier)
         this.scroll(eval(bindings[key]));
   }
 
@@ -17,8 +17,8 @@ class Scroller {
     return (times / 100) * this.height;
   }
 
-  scroll (value) {
-    this.panel.scrollBy(0, this.percentage(value));
+  scroll (ammount) {
+    this.panel.scrollBy(0, this.percentage(ammount));
   }
 }
 
