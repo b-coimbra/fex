@@ -131,9 +131,10 @@ body {
 }
 
 #files.split {
-    right: -45% !important;
+    right: 0 !important;
     z-index: 2;
-    display: flex !important;
+    display: grid !important;
+    grid-column: 3;
     visibility: visible !important;
     box-shadow: 0 0 2px grey;
 }
@@ -614,11 +615,12 @@ body {
 #search {
     position: absolute;
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.65);
+    height: calc(100% - 35px);
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
     z-index: 3;
     display: none;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     visibility: hidden;
     opacity: 0;
@@ -632,6 +634,26 @@ body {
 }
 
 #search input[name='search'] {
-    width: 80%;
-    background: #fff;
+    width: 100%;
+    background: rgba(255, 255, 255, .15);
+    color: #fff;
+    padding: .8em 2em;
+    border: none;
+    box-shadow: inset 0 0 0 2px #fff;
+    outline: none;
+    font: 400 14px 'Roboto', sans-serif;
+    letter-spacing: .5px;
+}
+
+.menu {
+    border-radius: 0 0 0 5px;
+}
+
+.nav {
+    border-radius: 5px 5px 0 0;
+}
+
+#window {
+    border-radius: 0 0 5px 0;
+    overflow: hidden;
 }
