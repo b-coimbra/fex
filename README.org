@@ -1,12 +1,10 @@
 * fex (File EXplorer)
 
-WIP
-
 A minimal file explorer.
 
 ** Preview
 
-[[file:https://i.imgur.com/ArtIita.png]]
+[[file:https://i.imgur.com/tl78E8W.png]]
 
 +even though there's nothing minimal about electron apps at all+
 
@@ -24,9 +22,9 @@ A minimal file explorer.
 
 ** Keybindings
 
-   The bindings can be changed in the ~config.json~ file.
+   The bindings can be changed in the config/keybindings.json file.
 
-- ~?~ toggle keybindings cheatsheet
+- ~?~ toggle the settings page
 - ~<~, ~Alt <left-key>~ go back
 - ~>~, ~Alt <right-key>~ go forward
 - ~Alt <up-key>~ go up one directory
@@ -36,22 +34,16 @@ A minimal file explorer.
 - ~|~ toggle menu
 - ~#~ toggle image thumbnails
 
-** TODO Features
+*** Vim keybindings
 
-- [X] Open file
-- [ ] Show type (.png, .jpg, .pdf etc)
-- [50%] Image thumbnails
-- [X] Fullscreen mode
-- [X] File Size
-- [X] Date modified
-- [ ] Delete 
-- [ ] Rename
-- [X] Tabs (<numpad> to select tab)
-- [X] Context Menu
-  - [ ] Open folder in a separate tab
-  - [ ] Properties
-- [ ] Searching
-  - [ ] Autocomplete
-- [ ] Filter (by date, by name, size etc)
-- [ ] Selecting multiple files
-- [ ] Drag and Drop
+   These keybindings can be turned off in the settings.
+
+- ~v~ split window *vertically*
+- ~<up-key>~, ~s~ scroll up by *25%*
+- ~<down-key>~, ~w~ scroll down by *25%*
+- ~k~ scroll up by *10%*
+- ~j~ scroll down by *10%*
+- ~e~ scroll up by *50%*
+- ~d~ scroll down by *50%*
+- ~G~ goes to the *bottom*
+- ~g~ goes to the *top*
