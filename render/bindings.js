@@ -3,6 +3,7 @@ const Menu     = require('./menu.js');
 const Scroller = require('./scroller.js');
 const Config   = require('./config.js');
 const Search   = require('./search.js');
+const Image    = require('./image.js');
 
 class Bindings {
   constructor () { }
@@ -22,11 +23,11 @@ class Bindings {
         $('.settings > ul').innerHTML += `<li key="${elem}">${json[elem].description}</li>`;
   }
 
-  scroll (key, bindings) {
-    new Scroller(key, bindings);
+  scroll (modifier, bindings) {
+    new Scroller(modifier, bindings);
   }
 
-  get keybindings() {
+  keybindings() {
     fs.readFile("config/keybindings.json", "utf8", (err, data) => {
       if (err) throw err;
 
@@ -35,9 +36,10 @@ class Bindings {
             alt  = keys.alt,
             vim  = keys.vim;
 
-      const tabs = new Tabs(),
-            menu = new Menu(),
-            conf = new Config();
+      const tabs   = new Tabs(),
+            menu   = new Menu(),
+            conf   = new Config(),
+            search = new Search();
 
       this.cheatsheet(keys);
 
@@ -50,7 +52,6 @@ class Bindings {
 
             if (current != null) {
               tabs.activate(current);
-              tabs.update();
               menu.refresh();
             }
           }
@@ -60,9 +61,9 @@ class Bindings {
                 eval(alt[_key_]);
           }
           else {
-            if (conf.settings.general.vim.value == 'true') {
+            if (conf.settings.general.vim.value == 'true' && !search.isActive()) {
               if (e.key == 'f')
-                new Search().toggle();
+                search.toggle();
               else
                 this.scroll(e.key, vim);
             }
@@ -75,4 +76,4 @@ class Bindings {
 
 module.exports = Bindings;
 
-new Bindings().keybindings;
+new Bindings().keybindings();
