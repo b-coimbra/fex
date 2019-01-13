@@ -309,7 +309,8 @@ body {
     color: #fff !important;
 }
 
-.nav .control .split-tabs.splitted {
+.nav .control .split-tabs.splitted,
+.nav .control .search.active {
     background-color: #111111;
     filter: opacity(1);
     box-shadow: inset 0 -2px transparent;
@@ -617,24 +618,24 @@ body {
     width: 100%;
     height: calc(100% - 35px);
     bottom: 0;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.85);
     z-index: 3;
     display: none;
-    align-items: start;
-    justify-content: center;
+    grid-template-rows: [search] 40px [results] auto;
+    flex-wrap: wrap;
     visibility: hidden;
     opacity: 0;
     transition: all .3s;
 }
 
 #search.active {
-    display: flex;
+    display: grid;
     visibility: visible;
     opacity: 1;
 }
 
 #search input[name='search'] {
-    width: 100%;
+    grid-row: search;
     background: rgba(255, 255, 255, .15);
     color: #fff;
     padding: .8em 2em;
@@ -643,6 +644,35 @@ body {
     outline: none;
     font: 400 14px 'Roboto', sans-serif;
     letter-spacing: .5px;
+}
+
+.result {
+    grid-row: results;
+}
+
+.result li {
+    background: rgba(255, 255, 255, 0.15);
+    padding: .3em;
+    list-style: none;
+}
+
+.result li p span {
+    color: #ababab;
+    font: 400 14px 'Roboto', sans-serif;
+    letter-spacing: .6px;
+}
+
+.result li p span[matched] {
+    color: #fff;
+    font-weight: 900;
+}
+
+.result li:not(:first-child) {
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.result li:first-child {
+    background: rgba(112, 138, 210, 0.35);
 }
 
 .menu {

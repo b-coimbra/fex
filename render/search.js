@@ -1,6 +1,18 @@
-// TODO: maybe add the input above the sorting panel
-// TODO: parse 'ESC' for closing the search panel
-// TODO: add 'active' state to the search nav button
+let append = (item, reg, search) =>
+    item.match(reg).input.split("")
+    .map(i => `<span ${i == search[search.indexOf(i)] && 'matched'}>${i}</span>`).join("");
+
+function search(query) {
+  let match   = new RegExp(`(?:\\b${query})+`, 'mi'),
+      matches = [],
+      filter  = { html: e => $('.result').innerHTML = e };
+
+  $$('#files[active] #display td div p').forEach(item => {
+    if (match.test(item.innerHTML))
+      matches.push(`<li><p>${append(item.innerHTML, match, query)}</p></li>`);
+  });
+  filter.html(matches.join(""));
+}
 
 class Search {
   constructor () {
@@ -8,12 +20,29 @@ class Search {
 
     $('.search').onclick = () =>
       this.toggle();
+
+    this.input.onkeyup = (e) => {
+      if (e.key == 'Escape')
+        this.toggle();
+    };
+
+    this.input.oninput = (e) => {
+      let query = e.target.value;
+
+      if (!this.empty(query))
+        search(query);
+      else this.clear();
+    };
   }
 
   toggle () {
-    $('#search').classList.toggle('active');
+    this.input.value = '';
+    this.clear();
 
-    this.input.focus();
+    $('#search').classList.toggle('active');
+    $('.search').classList.toggle('active');
+
+    setTimeout(() => this.input.focus(), 0); // prevents sending the keybinding to the input field
   }
 
   isActive () {
@@ -21,9 +50,7 @@ class Search {
   }
 
   clear() {
-    $('.filter').innerHTML     = '';
-    $('.list').style.display   = 'block';
-    $('.marker').style.opacity = 0;
+    $('.result').innerHTML = '';
   }
 
   empty (elem) {
