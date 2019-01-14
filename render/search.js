@@ -1,6 +1,7 @@
 let append = (item, reg, search) =>
-    item.match(reg).input.split("")
-    .map(i => `<span ${i == search[search.indexOf(i)] && 'matched'}>${i}</span>`).join("");
+    item.match(reg).input
+        .split("")
+        .map(i => `<span ${i == search[search.indexOf(i)] && 'matched'}>${i}</span>`).join("");
 
 function search(query) {
   let match   = new RegExp(`(?:\\b${query})+`, 'mi'),
@@ -9,7 +10,10 @@ function search(query) {
 
   $$('#files[active] #display td div p').forEach(item => {
     if (match.test(item.innerHTML))
-      matches.push(`<li><p>${append(item.innerHTML, match, query)}</p></li>`);
+      matches.push(
+        `<li>
+          <p file="${item.innerHTML}">${append(item.innerHTML.toLowerCase(), match, query)}</p>
+        </li>`);
   });
   filter.html(matches.join(""));
 }
@@ -24,6 +28,16 @@ class Search {
     this.input.onkeyup = (e) => {
       if (e.key == 'Escape')
         this.toggle();
+      else if (e.key == 'Enter') {
+        // BUG: directory is being appended after going back
+        let path = $('.result li:first-child p').attr('file');
+
+        path = directories.slice(-1)[0] + path + "/";
+
+        readFolder(path, true);
+
+        this.toggle();
+      }
     };
 
     this.input.oninput = (e) => {

@@ -52,7 +52,9 @@
       "e": "-50",
       "G": "this.height",
       "g": "-(this.height)",
-      "v": "new Tabs().split()"
+      "v": "new Tabs().split()",
+      "S": "goBack()",
+      "D": "goForward()"
     }
   }
 }

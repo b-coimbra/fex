@@ -11,6 +11,7 @@ class Bindings {
   // refactor this shit later
   upDir () {
     readFolder(getUpDir($('#files[active] #display').attr('directory')));
+    directories.pop();
   }
 
   show () {

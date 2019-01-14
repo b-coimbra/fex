@@ -32,7 +32,7 @@ let fileSize = (filename) =>
     fs.statSync(filename).size;
 
 let directories = ['/'],
-    previous = [];
+    previous    = [];
 
 let getModDate = (date) =>
     `${date.getDay()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
@@ -49,8 +49,6 @@ let getUpDir = (dir) => {
 };
 
 function readFolder(path = '/', append = false) {
-  if (append) directories.push(path);
-
   let maxSize = 0,
       fileCount = 0;
 
@@ -58,6 +56,8 @@ function readFolder(path = '/', append = false) {
     'use strict';
 
     if (err) throw err;
+
+    if (!err && append) directories.push(path);
 
     let fileContainer = $('#files[active] #display');
     fileContainer.innerHTML = '';
