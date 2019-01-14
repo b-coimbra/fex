@@ -47,3 +47,5 @@ A minimal file explorer.
 - ~d~ scroll down by *50%*
 - ~G~ goes to the *bottom*
 - ~g~ goes to the *top*
+- ~S~ go back
+- ~D~ go forward
