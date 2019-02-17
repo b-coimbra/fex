@@ -72,7 +72,7 @@ class Tabs {
   titleize (tabs) {
     let config = new Config().settings.tabs;
     let settings = {
-      numbers:    (config.numbers.value === "true"),
+      numbers:    (config.numbers.value    === "true"),
       navbuttons: (config.navbuttons.value === "false")
     };
 
@@ -120,6 +120,11 @@ module.exports = Tabs;
 
 let tabs = new Tabs();
 
-// tabs.update();
+let updateTabs = () => {
+  tabs.update();
 
-setInterval((() => tabs.update()));
+  window.requestAnimationFrame(updateTabs);
+};
+
+window.requestAnimationFrame(updateTabs);
+

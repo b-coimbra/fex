@@ -184,6 +184,10 @@ body {
     cursor: pointer;
 }
 
+#display td.active {
+    background: #252525;
+}
+
 #display tr.active {
     background: #252525;
     box-shadow: inset 2px 0 #2ca998;
@@ -238,7 +242,13 @@ body {
 
 .nav .control button:hover {
     filter: opacity(1);
-    background-color: #32354c;
+    background-color: rgb(46, 47, 56);
+    box-shadow: 0 2px rgb(20, 22, 25);
+}
+
+.nav .control button:active {
+    background-color: #13121b;
+    color: grey;
 }
 
 .nav .control button.deactivated {
@@ -677,11 +687,11 @@ body {
     font-weight: 900;
 }
 
-.result li:not(:first-child) {
+.result li:not(.active) {
     box-shadow: inset 0 1px rgba(255, 255, 255, 0.18);
 }
 
-.result li:first-child {
+.result li.active {
     background: rgba(112, 138, 210, 0.35);
 }
 
@@ -696,4 +706,44 @@ body {
 #window {
     border-radius: 0 0 5px 0;
     overflow: hidden;
+}
+
+.context-menu {
+    position: absolute;
+    display: none;
+    width: auto;
+    height: auto;
+    background: #1f2129;
+    color: #fff;
+    box-sizing: border-box;
+    top: 190px;
+    left: 265px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, .2);
+    z-index: 9;
+}
+
+.context-menu li {
+    font: 500 13px 'Roboto', sans-serif;
+    padding: .5em 2em;
+    cursor: pointer;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+.context-menu li:hover {
+    background: rgba(0, 0, 0, .3);
+    color: #dadada;
+}
+
+.context-menu li:not(:last-child) {
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
+}
+
+.context-menu.show {
+    display: block;
+}
+
+.context-menu {
+    list-style: none;
 }

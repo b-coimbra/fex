@@ -25,12 +25,18 @@ class Search {
     $('.search').onclick = () =>
       this.toggle();
 
-    this.input.onkeyup = (e) => {
+    let selected = 1;
+
+    this.input.onkeydown = (e) => {
+      this.cycle(selected);
+
+      console.log(e.key);
+
       if (e.key == 'Escape')
         this.toggle();
       else if (e.key == 'Enter') {
         // BUG: directory is being appended after going back
-        let path = $('.result li:first-child p').attr('file');
+        let path = $('.result li.active p').attr('file');
 
         path = directories.slice(-1)[0] + path + "/";
 
@@ -38,6 +44,18 @@ class Search {
 
         this.toggle();
       }
+      // TODO: add limits
+      else if (e.key == 'Tab' || e.key == 'ArrowDown') {
+        if (selected < $$('.result li').length)
+          selected++;
+          // this.cycle(selected++);
+
+        e.preventDefault();
+      }
+      else if ((e.key == 'Shift' && e.key == 'Tab') || e.key == 'ArrowUp')
+        if (selected > 1)
+          // this.cycle(selected--);
+          selected--;
     };
 
     this.input.oninput = (e) => {
@@ -47,6 +65,11 @@ class Search {
         search(query);
       else this.clear();
     };
+  }
+
+  cycle (elem) {
+    $$('.result li').forEach((elem) => elem.classList.remove('active'));
+    (`.result li:nth-child(${elem})`).classList.add('active');
   }
 
   toggle () {

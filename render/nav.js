@@ -1,13 +1,11 @@
 const remote = require('electron').remote;
 
 let minimizeApp = () => {
-  let window = remote.getCurrentWindow();
-  window.minimize();
+  remote.getCurrentWindow().minimize();
 };
 
 let closeApp = () => {
-  let window = remote.getCurrentWindow();
-  window.close();
+  remote.getCurrentWindow().close();
 };
 
 let maximizeApp = () => {

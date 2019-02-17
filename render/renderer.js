@@ -71,7 +71,7 @@ function readFolder(path = '/', append = false) {
 
         if (status.isDirectory())
           fileContainer.innerHTML +=
-            `<tr>
+          `<tr oncontextmenu="contextMenuEvnt(event, '${fileID}', 'folder');">
               <td id="${fileID}" ondblclick="readFolder(this.id, true)" onclick="selectFolder(this)">
                 <div>
                   <i class="material-icons">folder</i>
@@ -83,7 +83,7 @@ function readFolder(path = '/', append = false) {
             </tr>`;
         else {
           fileContainer.innerHTML +=
-            `<tr>
+            `<tr oncontextmenu="contextMenuEvnt(event, '${fileID}', 'file');">
               <td id="${fileID}" ondblclick="openFile(this.id)">${file}</td>
               <td>${getModDate(status.mtime)}</td>
               <td>${fileSize(fileID).to_filesize()}</td>
@@ -107,6 +107,7 @@ let selectFolder = (folder) => {
   $$('#display tr td div i').forEach(e => e.innerHTML = 'folder');
 
   folder.childNodes[1].childNodes[1].innerHTML = 'folder_open';
+  folder.parentNode.classList.add('active');
 };
 
 let goForward = () =>

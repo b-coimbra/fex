@@ -8,7 +8,6 @@ const Image    = require('./image.js');
 class Bindings {
   constructor () { }
 
-  // refactor this shit later
   upDir () {
     readFolder(getUpDir($('#files[active] #display').attr('directory')));
     directories.pop();
@@ -29,7 +28,7 @@ class Bindings {
   }
 
   keybindings() {
-    fs.readFile("config/keybindings.json", "utf8", (err, data) => {
+    fs.readFile("./config/keybindings.json", "utf8", (err, data) => {
       if (err) throw err;
 
       const json = JSON.parse(data),

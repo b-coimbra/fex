@@ -1,8 +1,5 @@
-let update_warn = () => {
-  // add a little html box at the bottom
-
-  console.warn("Config file has been updated!");
-};
+let update_warn = () =>
+    console.warn("Config file has been updated!");
 
 let collapse = (e) =>
     $(`.settings .wrapper ul[name=${e}]`).classList.toggle('collapsed');
